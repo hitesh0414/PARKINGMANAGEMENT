@@ -1,0 +1,43 @@
+.parking-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-size: 16px;
+  }
+  
+  select {
+    margin: 10px;
+    padding: 5px;
+  }
+  
+  .slots {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .slot {
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .slot.available:hover {
+    background-color: #d4edda;
+  }
+  
+  .slot.booked {
+    background-color: #f8d7da;
+    cursor: not-allowed;
+  }
+  

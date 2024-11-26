@@ -1,21 +1,30 @@
-const handleLogin = async (e) => {
-    e.preventDefault();
-    const { email, password } = formData;
+// controllers/signup.js
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');  // Import the User model
+
+const signUp = async (req, res) => {
+  const { name, email, password } = req.body;
   
-    const response = await fetch('http://localhost:5000/api/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-  
-    const result = await response.json();
-  
-    if (response.ok) {
-      setMessage(`Login successful! Token: ${result.token}`);
-    } else {
-      setMessage(result.message);  // Display error message
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
     }
-  };
-  
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error creating user' });
+  }
+};
+
+module.exports = { signUp };

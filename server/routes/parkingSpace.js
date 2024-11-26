@@ -23,14 +23,14 @@ router.post('/add', async (req, res) => {
 });
 
 // Fetch all parking spaces
-// router.get('/', async (req, res) => {
-//   try {
-//     const parkingSpaces = await ParkingSpace.find();
-//     res.status(200).json(parkingSpaces);
-//   } catch (err) {
-//     res.status(400).json({ message: 'Failed to fetch parking spaces', error: err });
-//   }
-// });
+router.get('/', async (req, res) => {
+  try {
+    const parkingSpaces = await ParkingSpace.find();
+    res.status(200).json(parkingSpaces);
+  } catch (err) {
+    res.status(400).json({ message: 'Failed to fetch parking spaces', error: err });
+  }
+});
 
 // Update parking space status (e.g., occupy or free)
 router.put('/update/:id', async (req, res) => {
@@ -53,18 +53,18 @@ router.put('/update/:id', async (req, res) => {
 });
 
 // Fetch a specific parking space by its ID
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const parkingSpace = await ParkingSpace.findById(req.params.id);
+router.get('/:id', async (req, res) => {
+  try {
+    const parkingSpace = await ParkingSpace.findById(req.params.id);
 
-//     if (!parkingSpace) {
-//       return res.status(404).json({ message: 'Parking space not found' });
-//     }
+    if (!parkingSpace) {
+      return res.status(404).json({ message: 'Parking space not found' });
+    }
 
-//     res.status(200).json(parkingSpace);
-//   } catch (err) {
-//     res.status(400).json({ message: 'Failed to fetch parking space', error: err });
-//   }
-// });
+    res.status(200).json(parkingSpace);
+  } catch (err) {
+    res.status(400).json({ message: 'Failed to fetch parking space', error: err });
+  }
+});
 
 module.exports = router;
